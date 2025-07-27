@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eBay Product Finder</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fa-brands fa-ebay"></i> eBay Product Finder</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="search-section card">
+            <form id="searchForm">
+                <div class="form-group">
+                    <label for="productName"><i class="fa-solid fa-magnifying-glass"></i> Product Name</label>
+                    <input type="text" id="productName" placeholder="Enter product name" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="condition"><i class="fa-solid fa-box-open"></i> Condition</label>
+                        <select id="condition">
+                            <option value="all">All Conditions</option>
+                            <option value="new">New</option>
+                            <option value="used">Used</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="currency"><i class="fa-solid fa-coins"></i> Currency</label>
+                        <select id="currency">
+                            <option value="USD">USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="JPY">JPY - Japanese Yen</option>
+                            <option value="CAD">CAD - Canadian Dollar</option>
+                            <option value="CNY">CNY - Chinese Yuan</option>
+                            <option value="HKD">HKD - Hong Kong Dollar</option>
+                            <option value="AUD">AUD - Australian Dollar</option>
+                            <option value="SGD">SGD - Singapore Dollar</option>
+                            <option value="CHF">CHF - Swiss Franc</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sortBy"><i class="fa-solid fa-arrow-down-a-z"></i> Sort By</label>
+                        <select id="sortBy">
+                            <option value="">Default</option>
+                            <option value="price_asc">Price: Low to High</option>
+                            <option value="price_desc">Price: High to Low</option>
+                            <option value="rating_asc">Rating: Low to High</option>
+                            <option value="rating_desc">Rating: High to Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" id="searchBtn">
+                        <span class="btn-text">Search Products</span>
+                        <span class="spinner hidden"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                    </button>
+                    <button type="button" id="exportBtn" class="secondary">
+                        <i class="fa-solid fa-download"></i> Export Results
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section class="results-section">
+            <div id="resultsHeader" class="hidden">
+                <h2>Search Results</h2>
+                <div id="resultsCount"></div>
+            </div>
+            
+            <div id="resultsContainer">
+                <div class="placeholder">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <p>Enter a product name to start your search</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Export Modal -->
+    <div id="exportModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Export Results</h3>
+                <button id="closeModal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Select your preferred export format:</p>
+                <div class="export-options">
+                    <button class="export-option" data-format="csv">
+                        <i class="fa-solid fa-file-csv"></i>
+                        CSV
+                    </button>
+                    <button class="export-option" data-format="excel">
+                        <i class="fa-solid fa-file-excel"></i>
+                        Excel
+                    </button>
+                    <button class="export-option" data-format="json">
+                        <i class="fa-solid fa-file-code"></i>
+                        JSON
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

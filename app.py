@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, session, g
+from flask import Flask, request, jsonify, session, g, send_from_directory
 from flask_caching import Cache
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import logging
 from auth import get_ebay_access_token, EbayAuthError
 from api_fetcher import fetch_ebay_listings
-from processor import process_ebay_data, sort_dataframe
+from processor import process_ebay_data, sort_dataframe, filter_data
 from exporter import export_data
 from exchange import get_exchange_rate, ExchangeRateUnavailableError
 from exceptions import ProcessingError
@@ -41,11 +41,6 @@ limiter = Limiter(
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-@app.before_request
-def before_request():
-    """Initialize g object for request context"""
-    g.ebay_token = None
-
 def get_cached_exchange_rate(base_currency, target_currency):
     """Get exchange rate with caching"""
     cache_key = f"exchange_rate_{base_currency}_{target_currency}"
@@ -62,8 +57,19 @@ def get_cached_exchange_rate(base_currency, target_currency):
     
     return rate
 
+@app.route('/debug/token')
+def debug_token():
+    try:
+        token = get_ebay_access_token()
+        return jsonify({
+            "token": token[:10] + "...",
+            "expires_at": token_cache["expires_at"].isoformat()
+        })
+    except EbayAuthError as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/api/search', methods=['POST'])
-@limiter.limit("1 per 5 minutes")  # Server-side rate limiting
+@limiter.limit("5 per second")  # Server-side rate limiting
 def search_products():
     """Endpoint for product search with filtering and sorting"""
     try:
@@ -97,8 +103,7 @@ def search_products():
         df = process_ebay_data(raw_data, currency)
         
         # Apply condition filter
-        if condition != 'all':
-            df = df[df['Condition'].str.lower() == condition.lower()]
+        df = filter_data(df, condition)
         
         # Apply sorting if requested
         if sort_by:
@@ -155,10 +160,9 @@ def export_products():
         
         # Process data
         df = process_ebay_data(raw_data, currency)
-        
+    
         # Apply filters and sorting
-        if condition != 'all':
-            df = df[df['Condition'].str.lower() == condition.lower()]
+        df = filter_data(df, condition)
         if sort_by:
             df = sort_dataframe(df, sort_by)
         
@@ -168,6 +172,14 @@ def export_products():
     except Exception as e:
         logger.exception("Error in export endpoint")
         return jsonify({'error': 'Export failed'}), 500
+    
+@app.route('/')
+def serve_frontend():
+    return send_from_directory('templates', 'index.html')
+
+@app.route('/static/<path:path>')
+def serve_static(path):
+    return send_from_directory('static', path)
 
 if __name__ == '__main__':
     app.run(debug=True)

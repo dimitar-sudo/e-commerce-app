@@ -62,3 +62,23 @@ def sort_dataframe(df, sort_by):
         logger.error("Invalid sort column requested")
     
     return df
+
+# Condition mapping based on eBay API values
+CONDITION_MAPPING = {
+    'new': ['NEW', 'NEW_OTHER', 'NEW_WITH_DEFECTS', 'MANUFACTURER_REFURBISHED'],
+    'used': ['USED', 'LIKE_NEW', 'CERTIFIED_REFURBISHED', 'SELLER_REFURBISHED'],
+    'all': []  # Special case meaning no filter
+}
+
+def filter_data(df, condition):
+    """Filter DataFrame by condition"""
+    if condition == 'all':
+        return df
+    
+    condition = condition.lower()
+    valid_conditions = CONDITION_MAPPING.get(condition, [])
+    if not valid_conditions:
+        logger.warning(f"Invalid condition specified: {condition}")
+        return df
+    
+    return df[df['Condition'].isin(valid_conditions)]
