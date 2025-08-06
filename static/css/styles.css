@@ -200,7 +200,9 @@ table {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--box-shadow);
+    table-layout: auto; 
 }
+
 
 th, td {
     padding: 1rem;
@@ -228,8 +230,29 @@ tbody tr:hover {
 }
 
 .price {
-    font-weight: 600;
+    /* Exact structural copy of .condition */
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500; /* Changed from 600 to match exactly */
+    
+    /* Your original color style */
     color: var(--primary);
+    
+    /* Matching background/border pattern */
+    background-color: rgba(0, 123, 255, 0.15);
+    border: 1px solid transparent;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    
+    /* The secret to matching vertical alignment */
+    line-height: normal; /* Resets to default */
+    vertical-align: baseline; /* Matches .condition's alignment */
+}
+
+.price:hover {
+    background-color: rgba(0, 123, 255, 0.25);
+    border-color: rgba(0, 123, 255, 0.4);
 }
 
 .condition {
@@ -238,21 +261,249 @@ tbody tr:hover {
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 500;
+    
+    color: var(--success); /* or your original color */
+    background-color: rgba(40, 167, 69, 0.15);
+    
+    border: 1px solid transparent; /* Invisible by default */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
+.condition:hover {
+    background-color: rgba(40, 167, 69, 0.25); /* 10% more opaque */
+    border-color: rgba(40, 167, 69, 0.4); /* Matching border effect */
+}
+
+/* New condition styles */
 .condition-new {
     background-color: rgba(40, 167, 69, 0.15);
     color: var(--success);
 }
 
+.condition-new:hover {
+    background-color: rgba(40, 167, 69, 0.25);
+    border-color: rgba(40, 167, 69, 0.4);
+}
+
+.condition-new-other {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: var(--success);
+}
+
+.condition-new-other:hover {
+    background-color: rgba(40, 167, 69, 0.25);
+    border-color: rgba(40, 167, 69, 0.4);
+}
+
+.condition-new-defects {
+    background-color: rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+}
+
+.condition-new-defects:hover {
+    background-color: rgba(255, 193, 7, 0.25);
+    border-color: rgba(255, 193, 7, 0.4);
+}
+
+.condition-manufacturer-refurb {
+    background-color: rgba(23, 162, 184, 0.15);
+    color: #17a2b8;
+}
+
+.condition-manufacturer-refurb:hover {
+    background-color: rgba(23, 162, 184, 0.25);
+    border-color: rgba(23, 162, 184, 0.4);
+}
+
+.condition-like-new {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: var(--success);
+}
+
+.condition-like-new:hover {
+    background-color: rgba(40, 167, 69, 0.25);
+    border-color: rgba(40, 167, 69, 0.4);
+}
+
+.condition-certified-refurb {
+    background-color: rgba(23, 162, 184, 0.15);
+    color: #17a2b8;
+}
+
+.condition-certified-refurb:hover {
+    background-color: rgba(23, 162, 184, 0.25);
+    border-color: rgba(23, 162, 184, 0.4);
+}
+
+.condition-seller-refurb {
+    background-color: rgba(23, 162, 184, 0.15);
+    color: #17a2b8;
+}
+
+.condition-seller-refurb:hover {
+    background-color: rgba(23, 162, 184, 0.25);
+    border-color: rgba(23, 162, 184, 0.4);
+}
+
+.condition-very-good-refurb {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: var(--success);
+}
+
+.condition-very-good-refurb:hover {
+    background-color: rgba(40, 167, 69, 0.25);
+    border-color: rgba(40, 167, 69, 0.4);
+}
+
+.condition-excellent-refurb {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: var(--success);
+}
+
+.condition-excellent-refurb:hover {
+    background-color: rgba(40, 167, 69, 0.25);
+    border-color: rgba(40, 167, 69, 0.4);
+}
+
+.condition-good-refurb {
+    background-color: rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+}
+
+.condition-good-refurb:hover {
+    background-color: rgba(255, 193, 7, 0.25);
+    border-color: rgba(255, 193, 7, 0.4);
+}
+
+/* Used condition styles */
 .condition-used {
     background-color: rgba(220, 53, 69, 0.15);
     color: var(--danger);
 }
 
-.rating {
+.condition-used:hover {
+    background-color: rgba(220, 53, 69, 0.25); /* 10% more opaque */
+    border-color: rgba(220, 53, 69, 0.4); /* Matching border effect */
+}
+
+.condition-very-good {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: var(--success);
+}
+
+.condition-very-good:hover {
+    background-color: rgba(40, 167, 69, 0.25);
+    border-color: rgba(40, 167, 69, 0.4);
+}
+
+.condition-good {
+    background-color: rgba(255, 193, 7, 0.15);
     color: #ffc107;
 }
+
+.condition-good:hover {
+    background-color: rgba(255, 193, 7, 0.25);
+    border-color: rgba(255, 193, 7, 0.4);
+}
+
+.condition-acceptable {
+    background-color: rgba(253, 126, 20, 0.15);
+    color: #fd7e14;
+}
+
+.condition-acceptable:hover {
+    background-color: rgba(253, 126, 20, 0.25);
+    border-color: rgba(253, 126, 20, 0.4);
+}
+
+.condition-fair {
+    background-color: rgba(253, 126, 20, 0.15);
+    color: #fd7e14;
+}
+
+.condition-fair:hover {
+    background-color: rgba(253, 126, 20, 0.25);
+    border-color: rgba(253, 126, 20, 0.4);
+}
+
+.condition-parts {
+    background-color: rgba(108, 117, 125, 0.15);
+    color: var(--secondary);
+}
+
+.condition-parts:hover {
+    background-color: rgba(108, 117, 125, 0.25);
+    border-color: rgba(108, 117, 125, 0.4);
+}
+
+.condition-unknown {
+    background-color: rgba(108, 117, 125, 0.15);
+    color: var(--secondary);
+}
+
+.condition-unknown:hover {
+    background-color: rgba(108, 117, 125, 0.25);
+    border-color: rgba(108, 117, 125, 0.4);
+}
+
+.rating {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    
+    color: hsl(0, 0%, 20%);         
+    background-color: hsl(0, 0%, 95%); 
+    border: 1px solid hsl(0, 0%, 85%);
+    
+    transition: background-color 0.2s ease;
+}
+
+
+.rating:hover {
+    background-color: hsl(0, 0%, 90%); 
+    border-color: hsl(0, 0%, 75%);
+}
+
+.origin {
+    /* Match the same structure as .price and .condition */
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    
+    /* New color scheme for origin */
+    color: var(--secondary);
+    background-color: rgba(108, 117, 125, 0.15);
+    border: 1px solid transparent;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    
+    /* Matching alignment properties */
+    line-height: normal;
+    vertical-align: baseline;
+}
+
+.origin:hover {
+    background-color: rgba(108, 117, 125, 0.25);
+    border-color: rgba(108, 117, 125, 0.4);
+}
+
+/* Country-specific variants (optional) */
+.origin-us {
+    background-color: rgba(13, 110, 253, 0.15);
+    color: #0d6efd;
+}
+.origin-uk {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: var(--danger);
+}
+.origin-de {
+    background-color: rgba(253, 126, 20, 0.15);
+    color: #fd7e14;
+}
+/* Add more country codes as needed */
 
 .error-message {
     background-color: #ffe3e6;
@@ -263,7 +514,7 @@ tbody tr:hover {
     text-align: center;
 }
 
-/* Modal */
+
 .modal {
     position: fixed;
     top: 0;
@@ -367,4 +618,81 @@ tbody tr:hover {
         display: block;
         overflow-x: auto;
     }
+}
+
+.view-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    background-color: #2563eb;
+    color: white;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.view-btn:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+.view-btn:active {
+    transform: scale(0.96);
+}
+
+.view-btn:focus {
+    outline: 2px solid #93c5fd;
+    outline-offset: 2px;
+}
+
+.condition-used-excellent {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: var(--success);
+}
+
+.condition-used-excellent:hover {
+    background-color: rgba(40, 167, 69, 0.25);
+    border-color: rgba(40, 167, 69, 0.4);
+}
+
+.condition-used-very-good {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: var(--success);
+}
+
+.condition-used-very-good:hover {
+    background-color: rgba(40, 167, 69, 0.25);
+    border-color: rgba(40, 167, 69, 0.4);
+}
+
+.condition-used-good {
+    background-color: rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+}
+
+.condition-used-good:hover {
+    background-color: rgba(255, 193, 7, 0.25);
+    border-color: rgba(255, 193, 7, 0.4);
+}
+
+.condition-used-acceptable {
+    background-color: rgba(253, 126, 20, 0.15);
+    color: #fd7e14;
+}
+
+.condition-used-acceptable:hover {
+    background-color: rgba(253, 126, 20, 0.25);
+    border-color: rgba(253, 126, 20, 0.4);
+}
+
+.condition-excellent-refurb {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: var(--success);
+}
+
+.condition-excellent-refurb:hover {
+    background-color: rgba(40, 167, 69, 0.25);
+    border-color: rgba(40, 167, 69, 0.4);
 }

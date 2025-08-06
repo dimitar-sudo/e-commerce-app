@@ -63,16 +63,44 @@ def sort_dataframe(df, sort_by):
     
     return df
 
-# Condition mapping based on eBay API values
+# Comprehensive condition mapping based on eBay API values
+# Updated to include all possible eBay condition values with case-insensitive support
 CONDITION_MAPPING = {
-    'new': ['NEW', 'NEW_OTHER', 'NEW_WITH_DEFECTS', 'MANUFACTURER_REFURBISHED'],
-    'used': ['USED', 'LIKE_NEW', 'CERTIFIED_REFURBISHED', 'SELLER_REFURBISHED'],
+    'new': [
+        # Official eBay condition values
+        'NEW', 'LIKE_NEW', 'NEW_OTHER', 'NEW_WITH_DEFECTS',
+        # Common variations and display names
+        'New', 'Like New', 'New (Other)', 'New with defects',
+        'New with tags', 'Brand New', 'Mint', 'Perfect'
+    ],
+    'used': [
+        # Official eBay condition values
+        'PRE_OWNED_EXCELLENT', 'USED_EXCELLENT', 'USED_VERY_GOOD', 'USED_GOOD', 'USED_ACCEPTABLE',
+        # Common variations and display names
+        'Used', 'Pre-owned', 'Excellent', 'Very Good', 'Good', 'Acceptable',
+        'Fair', 'Used - Excellent', 'Used - Very Good', 'Used - Good', 'Used - Acceptable'
+    ],
+    'refurbished': [
+        # Official eBay condition values
+        'CERTIFIED_REFURBISHED', 'EXCELLENT_REFURBISHED', 'VERY_GOOD_REFURBISHED', 
+        'GOOD_REFURBISHED', 'SELLER_REFURBISHED',
+        # Common variations and display names
+        'Refurbished', 'Certified Refurbished', 'Excellent Refurbished', 
+        'Very Good Refurbished', 'Good Refurbished', 'Seller Refurbished',
+        'Manufacturer Refurbished'
+    ],
+    'parts_only': [
+        # Official eBay condition values
+        'FOR_PARTS_OR_NOT_WORKING',
+        # Common variations and display names
+        'For Parts', 'For Parts or Not Working', 'Parts Only', 'Not Working'
+    ],
     'all': []  # Special case meaning no filter
 }
 
 def filter_data(df, condition):
-    """Filter DataFrame by condition"""
-    if condition == 'all':
+    """Filter DataFrame by condition with improved case-insensitive matching"""
+    if condition == 'all' or df.empty:
         return df
     
     condition = condition.lower()
@@ -81,4 +109,30 @@ def filter_data(df, condition):
         logger.warning(f"Invalid condition specified: {condition}")
         return df
     
-    return df[df['Condition'].isin(valid_conditions)]
+    # Create a copy to avoid modifying the original
+    df_filtered = df.copy()
+    
+    # Normalize condition values for comparison (case-insensitive)
+    df_filtered['Condition_Normalized'] = df_filtered['Condition'].str.upper().str.strip()
+    
+    # Create a set of normalized valid conditions for faster lookup
+    valid_conditions_normalized = {c.upper().strip() for c in valid_conditions}
+    
+    # Filter based on normalized conditions
+    mask = df_filtered['Condition_Normalized'].isin(valid_conditions_normalized)
+    filtered_df = df_filtered[mask].drop('Condition_Normalized', axis=1)
+    
+    # Log detailed information about the filtering
+    original_count = len(df)
+    filtered_count = len(filtered_df)
+    logger.info(f"Condition filtering: '{condition}' - {original_count} items -> {filtered_count} items")
+    
+    # Log unique conditions found in the data for debugging
+    unique_conditions = df['Condition'].unique()
+    logger.info(f"Unique conditions in data: {list(unique_conditions)}")
+    
+    # Log which conditions were matched
+    matched_conditions = filtered_df['Condition'].unique()
+    logger.info(f"Matched conditions: {list(matched_conditions)}")
+    
+    return filtered_df

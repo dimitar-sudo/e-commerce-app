@@ -22,8 +22,14 @@ def export_data(df, export_format, filename_prefix="ebay_products"):
 
     elif export_format == 'excel':
         output = BytesIO()
-        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-            df.to_excel(writer, index=False, sheet_name='Products')
+        try:
+            # Try xlsxwriter first (better formatting)
+            with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+                df.to_excel(writer, index=False, sheet_name='Products')
+        except ImportError:
+            # Fallback to openpyxl if xlsxwriter is not available
+            with pd.ExcelWriter(output, engine='openpyxl') as writer:
+                df.to_excel(writer, index=False, sheet_name='Products')
         output.seek(0)
         return send_file(
             output,
