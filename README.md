@@ -36,6 +36,7 @@ A professional and responsive web application that searches eBay for products wi
 
 ## Project Structure
 
+```
 ebay-product-finder/
 ├── app.py # Main Flask application
 ├── auth.py # eBay OAuth2 token handling
@@ -54,6 +55,7 @@ ebay-product-finder/
 ├── templates/
 │ └── index.html # Main HTML template
 └── README.md # Project documentation
+```
 
 ---
 
