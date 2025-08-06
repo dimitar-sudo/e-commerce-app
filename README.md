@@ -1,6 +1,6 @@
 # 🛒 eBay Product Finder Web Application
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)]([https://your-render-url.com](https://e-commerce-app-d78j.onrender.com/))  
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://e-commerce-app-d78j.onrender.com/) 
 [![Python Version](https://img.shields.io/badge/Python-3.12-blue)](https://python.org)  
 [![Flask](https://img.shields.io/badge/Flask-3.0.3-green)](https://flask.palletsprojects.com)
 
