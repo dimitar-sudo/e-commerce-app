@@ -38,23 +38,23 @@ A professional and responsive web application that searches eBay for products wi
 
 ```
 ebay-product-finder/
-├── app.py # Main Flask application
-├── auth.py # eBay OAuth2 token handling
-├── api_fetcher.py # eBay API integration
-├── processor.py # Data filtering, sorting, and formatting
-├── exporter.py # CSV, Excel, JSON export functions
-├── exchange.py # Currency conversion logic
-├── exceptions.py # Custom exception handling
-├── requirements.txt # Python dependencies
-├── render.yaml # Render deployment configuration
+├── app.py              # Main Flask application
+├── auth.py             # eBay OAuth2 token handling
+├── api_fetcher.py      # eBay API integration
+├── processor.py        # Data filtering, sorting, and formatting
+├── exporter.py         # CSV, Excel, JSON export functions
+├── exchange.py         # Currency conversion logic
+├── exceptions.py       # Custom exception handling
+├── requirements.txt    # Python dependencies
+├── render.yaml         # Render deployment configuration
 ├── static/
 │ ├── css/
-│ │ └── styles.css # Custom styles
+│ │ └── styles.css      # Custom styles
 │ └── js/
-│ └── script.js # Client-side logic
+│ └── script.js         # Client-side logic
 ├── templates/
-│ └── index.html # Main HTML template
-└── README.md # Project documentation
+│ └── index.html        # Main HTML template
+└── README.md           # Project documentation
 ```
 
 ---
