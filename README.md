@@ -84,21 +84,6 @@ ebay-product-finder/
 
 ---
 
-## Deployment on Render
-
-1. **Connect your GitHub repository** to [Render](https://render.com)  
-2. **Create a new Web Service**  
-3. **Set environment variables** in the dashboard:  
-   - `EBAY_CLIENT_ID`  
-   - `EBAY_CLIENT_SECRET`  
-   - `EXCHANGE_API_KEY`  
-   - `FLASK_SECRET_KEY` (use a secure random value)  
-4. **Deploy**  
-
-Your app will be available at your Render-provided URL.
-
----
-
 ## Future Enhancements
 
 - [ ] User login and search history 
